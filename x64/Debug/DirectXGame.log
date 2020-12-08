@@ -1,0 +1,8 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(467,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (DirectXGame.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  AppWindow.cpp
+  DeviceContext.cpp
+  RenderSystem.cpp
+  SwapChain.cpp
+  main.cpp
+  Generating Code...
+  DirectXGame.vcxproj -> D:\Midstone Project\Mid-Stone\x64\Debug\Mid-Stone.exe
