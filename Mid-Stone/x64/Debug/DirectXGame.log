@@ -1,0 +1,21 @@
+﻿  AppWindow.cpp
+  ConstantBuffer.cpp
+  DeviceContext.cpp
+  GraphicsEngine.cpp
+  IndexBuffer.cpp
+  InputSystem.cpp
+  main.cpp
+  Mesh.cpp
+  MeshManager.cpp
+  PixelShader.cpp
+  RenderSystem.cpp
+  Resource.cpp
+  ResourceManager.cpp
+  SwapChain.cpp
+  Texture.cpp
+  TextureManager.cpp
+  VertexBuffer.cpp
+  VertexShader.cpp
+  Window.cpp
+  Generating Code...
+  DirectXGame.vcxproj -> D:\Midstone Project\Mid-Stone\x64\Debug\Mid-Stone.exe
