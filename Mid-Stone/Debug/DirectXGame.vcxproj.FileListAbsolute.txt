@@ -1,0 +1,4 @@
+C:\Users\Nino\Downloads\CPP-3D-Game-Tutorial-Series-AllTutorials\CPP-3D-Game-Tutorial-Series-AllTutorials\Tutorial17_GraphicsEngine_Texturing\Debug\DirectXGame.exe
+C:\Users\Nino\Downloads\CPP-3D-Game-Tutorial-Series-AllTutorials\CPP-3D-Game-Tutorial-Series-AllTutorials\Tutorial17_GraphicsEngine_Texturing\Debug\DirectXGame.pdb
+D:\Midstone Project\Tutorial17_GraphicsEngine_Texturing\Debug\Mid-Stone.exe
+D:\Midstone Project\Tutorial17_GraphicsEngine_Texturing\Debug\Mid-Stone.pdb
