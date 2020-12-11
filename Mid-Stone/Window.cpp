@@ -14,6 +14,13 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 
 		break;
 	}
+	case WM_SIZE:
+	{
+		// Event fired when the window is resized
+		Window* window = (Window*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
+		if (window) window->onSize();
+		break;
+	}
 	case WM_SETFOCUS:
 	{
 		// Event fired when the window get focus
@@ -72,8 +79,8 @@ Window::Window()
 	window = this;*/
 
 	//Creation of the window
-	m_hwnd = ::CreateWindowEx(WS_EX_OVERLAPPEDWINDOW, "MyWindowClass", "Mid-Stone Project",
-		WS_CAPTION | WS_SYSMENU, CW_USEDEFAULT, CW_USEDEFAULT, 1024, 768,
+	m_hwnd = ::CreateWindowEx(WS_EX_OVERLAPPEDWINDOW, "MyWindowClass", "DirectX Application",
+		WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 1024, 768,
 		NULL, NULL, NULL, NULL);
 
 	//if the creation fail return false
@@ -134,6 +141,16 @@ RECT Window::getClientWindowRect()
 	return rc;
 }
 
+RECT Window::getSizeScreen()
+{
+	RECT rc;
+
+	rc.right = ::GetSystemMetrics(SM_CXSCREEN);
+	rc.bottom = ::GetSystemMetrics(SM_CYSCREEN);
+
+	return rc;
+}
+
 void Window::onCreate()
 {
 }
@@ -152,6 +169,10 @@ void Window::onFocus()
 }
 
 void Window::onKillFocus()
+{
+}
+
+void Window::onSize()
 {
 }
 

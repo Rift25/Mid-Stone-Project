@@ -41,11 +41,13 @@ RenderSystem::RenderSystem()
 		throw std::exception("RenderSystem not created successfully");
 	}
 
-	m_imm_device_context = std::make_shared<DeviceContext>(m_imm_context,this);
+	m_imm_device_context = std::make_shared<DeviceContext>(m_imm_context, this);
 
 	m_d3d_device->QueryInterface(__uuidof(IDXGIDevice), (void**)&m_dxgi_device);
 	m_dxgi_device->GetParent(__uuidof(IDXGIAdapter), (void**)&m_dxgi_adapter);
 	m_dxgi_adapter->GetParent(__uuidof(IDXGIFactory), (void**)&m_dxgi_factory);
+
+	initRasterizerState();
 }
 
 RenderSystem::~RenderSystem()
@@ -57,6 +59,8 @@ RenderSystem::~RenderSystem()
 	m_dxgi_device->Release();
 	m_dxgi_adapter->Release();
 	m_dxgi_factory->Release();
+	m_cull_back_state->Release();
+	m_cull_front_state->Release();
 
 	m_d3d_device->Release();
 }
@@ -66,7 +70,7 @@ SwapChainPtr RenderSystem::createSwapChain(HWND hwnd, UINT width, UINT height)
 	SwapChainPtr sc = nullptr;
 	try
 	{
-		sc=std::make_shared<SwapChain>(hwnd,width,height,this);
+		sc = std::make_shared<SwapChain>(hwnd, width, height, this);
 	}
 	catch (...) {}
 	return sc;
@@ -78,9 +82,9 @@ DeviceContextPtr RenderSystem::getImmediateDeviceContext()
 	return this->m_imm_device_context;
 }
 
-VertexBufferPtr RenderSystem::createVertexBuffer(void* list_vertices, UINT size_vertex, UINT size_list, void*shader_byte_code, UINT size_byte_shader)
+VertexBufferPtr RenderSystem::createVertexBuffer(void* list_vertices, UINT size_vertex, UINT size_list, void* shader_byte_code, UINT size_byte_shader)
 {
-	
+
 	VertexBufferPtr vb = nullptr;
 	try
 	{
@@ -112,7 +116,7 @@ ConstantBufferPtr RenderSystem::createConstantBuffer(void* buffer, UINT size_buf
 	return cb;
 }
 
-VertexShaderPtr RenderSystem::createVertexShader(const void * shader_byte_code, size_t byte_code_size)
+VertexShaderPtr RenderSystem::createVertexShader(const void* shader_byte_code, size_t byte_code_size)
 {
 	VertexShaderPtr vs = nullptr;
 	try
@@ -123,7 +127,7 @@ VertexShaderPtr RenderSystem::createVertexShader(const void * shader_byte_code, 
 	return vs;
 }
 
-PixelShaderPtr RenderSystem::createPixelShader(const void * shader_byte_code, size_t byte_code_size)
+PixelShaderPtr RenderSystem::createPixelShader(const void* shader_byte_code, size_t byte_code_size)
 {
 	PixelShaderPtr ps = nullptr;
 	try
@@ -149,7 +153,7 @@ bool RenderSystem::compileVertexShader(const wchar_t* file_name, const char* ent
 	return true;
 }
 
-bool RenderSystem::compilePixelShader(const wchar_t * file_name, const char * entry_point_name, void ** shader_byte_code, size_t * byte_code_size)
+bool RenderSystem::compilePixelShader(const wchar_t* file_name, const char* entry_point_name, void** shader_byte_code, size_t* byte_code_size)
 {
 	ID3DBlob* error_blob = nullptr;
 	if (!SUCCEEDED(D3DCompileFromFile(file_name, nullptr, nullptr, entry_point_name, "ps_5_0", 0, 0, &m_blob, &error_blob)))
@@ -167,4 +171,24 @@ bool RenderSystem::compilePixelShader(const wchar_t * file_name, const char * en
 void RenderSystem::releaseCompiledShader()
 {
 	if (m_blob)m_blob->Release();
+}
+
+void RenderSystem::setRasterizerState(bool cull_front)
+{
+	if (cull_front)
+		m_imm_context->RSSetState(m_cull_front_state);
+	else
+		m_imm_context->RSSetState(m_cull_back_state);
+}
+
+void RenderSystem::initRasterizerState()
+{
+	D3D11_RASTERIZER_DESC desc = {};
+	desc.CullMode = D3D11_CULL_FRONT;
+	desc.DepthClipEnable = true;
+	desc.FillMode = D3D11_FILL_SOLID;
+	m_d3d_device->CreateRasterizerState(&desc, &m_cull_front_state);
+
+	desc.CullMode = D3D11_CULL_BACK;
+	m_d3d_device->CreateRasterizerState(&desc, &m_cull_back_state);
 }
