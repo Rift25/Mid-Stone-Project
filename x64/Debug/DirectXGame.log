@@ -1,8 +1,5 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(467,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (DirectXGame.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  AppWindow.cpp
-  DeviceContext.cpp
-  RenderSystem.cpp
-  SwapChain.cpp
-  main.cpp
-  Generating Code...
+﻿  AppWindow.cpp
+D:\Midstone Project\Mid-Stone\AppWindow.cpp(52,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Midstone Project\Mid-Stone\AppWindow.cpp(56,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Midstone Project\Mid-Stone\AppWindow.cpp(60,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   DirectXGame.vcxproj -> D:\Midstone Project\Mid-Stone\x64\Debug\Mid-Stone.exe
